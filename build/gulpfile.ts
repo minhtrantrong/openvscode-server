@@ -41,6 +41,8 @@ const watchClientTask = useEsbuildTranspile
 	: task.define('watch-client', task.series(util.rimraf('out'), task.parallel(compilation.watchTask('out', false), compilation.watchApiProposalNamesTask, compilation.watchExtensionPointNamesTask, compilation.watchCodiconsTask)));
 gulp.task(watchClientTask);
 
+gulp.task(task.define('watch-init', require('./lib/compilation').watchTask('out', false)));
+
 // All
 const _compileTask = task.define('compile', task.parallel(monacoTypecheckTask, compileClientTask, compileExtensionsTask, compileExtensionMediaTask));
 gulp.task(_compileTask);

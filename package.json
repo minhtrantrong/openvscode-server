@@ -73,7 +73,9 @@
     "extensions-ci": "npm run gulp extensions-ci",
     "extensions-ci-pr": "npm run gulp extensions-ci-pr",
     "perf": "node scripts/code-perf.js",
-    "update-build-ts-version": "npm install -D typescript@next && npm install -D @typescript/native-preview && (cd build && npm run typecheck)"
+    "update-build-ts-version": "npm install -D typescript@next && npm install -D @typescript/native-preview && (cd build && npm run typecheck)",
+    "server:init": "yarn --cwd ./build compile && yarn compile && yarn download-builtin-extensions",
+    "server:smoketest": "yarn --cwd ./test/smoke compile && yarn smoketest-no-compile --web --verbose --headless --electronArgs=\"--disable-dev-shm-usage --use-gl=swiftshader\""
   },
   "dependencies": {
     "@anthropic-ai/sandbox-runtime": "0.0.23",
