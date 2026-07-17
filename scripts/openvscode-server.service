@@ -1,0 +1,35 @@
+[Unit]
+Description=OpenVSCode Server (VS Code in the browser)
+Documentation=https://github.com/gitpod-io/openvscode-server
+After=network.target
+
+[Service]
+Type=simple
+User=devx
+Group=devx
+
+# Path to the openvscode-server binary
+ExecStart=/opt/vscode-server/bin/openvscode-server \
+    --server-data-dir /opt/vscode-server/data \
+    --server-base-path /vscode \
+    --connection-token-file /etc/openvscode-server/connection-token \
+    --host 0.0.0.0 \
+    --port 3000
+
+# Restart unless manually stopped (systemd's "always" respects systemctl stop)
+Restart=always
+RestartSec=5
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+# Working directory
+WorkingDirectory=/opt/vscode-server
+
+# Environment variables (optional)
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
